@@ -1,7 +1,8 @@
 #lang racket
 
-(require parser-tools/lex)
-(require (prefix-in : parser-tools/lex-sre))
+(require
+  parser-tools/lex
+  (prefix-in : parser-tools/lex-sre))
 
 (provide
   make-token-gen
@@ -10,7 +11,8 @@
   marco-tokens)
 
 (define-lex-abbrevs
-  [lex:whitespace (:or #\newline #\return #\tab #\space #\vtab)])
+  [lex:whitespace (:or #\newline #\return #\tab #\space #\vtab)]
+  [lex:integer (:: (:? #\-) (:+ numeric))])
 
 (define-tokens marco-tokens (<eof> <integer>))
 
@@ -18,7 +20,7 @@
   (lexer
     [(:+ lex:whitespace) (void)]
     [(eof) (token-<eof> eof)]
-    [(:+ numeric) (token-<integer> (string->number lexeme))]))
+    [lex:integer (token-<integer> (string->number lexeme))]))
 
 (define (make-token-gen port src)
   (port-count-lines! port)
