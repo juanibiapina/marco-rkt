@@ -7,6 +7,7 @@
 (provide
   make-token-gen
   token-<integer>
+  token-<string>
   token-<eof>
   marco-tokens)
 
@@ -14,12 +15,13 @@
   [lex:whitespace (:or #\newline #\return #\tab #\space #\vtab)]
   [lex:integer (:: (:? #\-) (:+ numeric))])
 
-(define-tokens marco-tokens (<eof> <integer>))
+(define-tokens marco-tokens (<eof> <integer> <string>))
 
 (define lex
   (lexer
     [(:+ lex:whitespace) (void)]
     [(eof) (token-<eof> eof)]
+    [(:: #\" (:* (:~ #\")) #\") (token-<string> (substring lexeme 1 (- (string-length lexeme) 1)))]
     [lex:integer (token-<integer> (string->number lexeme))]))
 
 (define (make-token-gen port src)

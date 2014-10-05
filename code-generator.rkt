@@ -8,4 +8,5 @@
 (define (generate-code ast)
   (list
     (match ast
-      [(m:integer v) (datum->syntax #f v)])))
+      [(m:integer v) (datum->syntax #f v)]
+      [(m:string v) (datum->syntax #f v)])))

@@ -27,7 +27,12 @@
     (test-case
       "integers"
 
-      (check-equal? (parse (token-<integer> 0) (token-<eof> eof)) (m:integer 0)))))
+      (check-equal? (parse (token-<integer> 0) (token-<eof> eof)) (m:integer 0)))
+
+    (test-case
+      "string"
+
+      (check-equal? (parse (token-<string> "some string") (token-<eof> eof)) (m:string "some string")))))
 
 
 (require rackunit/text-ui)

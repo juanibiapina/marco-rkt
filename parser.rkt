@@ -5,7 +5,7 @@
   syntax/readerr)
 
 (require "lexer.rkt")
-(require (prefix-in marco: "language.rkt"))
+(require (prefix-in m: "language.rkt"))
 
 (provide parse)
 
@@ -24,4 +24,5 @@
     (start <program>)
     (end <eof>)
     (grammar
-      (<program> [(<integer>) (marco:integer $1)]))))
+      (<program> [(<integer>) (m:integer $1)]
+                 [(<string>) (m:string $1)]))))
