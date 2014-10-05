@@ -1,8 +1,8 @@
 #lang racket/base
 
-(require rackunit)
-
 (require
+  rackunit
+  rackunit/text-ui
   "../lexer.rkt"
   (prefix-in parser: "../parser.rkt")
   (prefix-in m: "../language.rkt"))
@@ -35,8 +35,5 @@
       "string"
 
       (check-equal? (parse (token-<string> "some string")) (m:string "some string")))))
-
-
-(require rackunit/text-ui)
 
 (run-tests suite)

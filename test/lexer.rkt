@@ -1,9 +1,9 @@
 #lang racket/base
 
-(require rackunit)
-
-
-(require "../lexer.rkt")
+(require
+  rackunit
+  rackunit/text-ui
+  "../lexer.rkt")
 
 (define (lex value)
   ((make-token-gen (open-input-string value) #f)))
@@ -28,8 +28,5 @@
 
      (check-equal? (lex "\"some string\"") (token-<string> "some string") "a string")
      (check-equal? (lex "\"\"") (token-<string> "") "empty string"))))
-
-
-(require rackunit/text-ui)
 
 (run-tests suite)
