@@ -2,9 +2,10 @@
 
 (require rackunit)
 
-(require "../lexer.rkt")
-(require "../parser.rkt")
-(require (prefix-in marco: "../language.rkt"))
+(require
+  "../lexer.rkt"
+  (prefix-in parser: "../parser.rkt")
+  (prefix-in marco: "../language.rkt"))
 
 (define parse
   (lambda args
@@ -16,7 +17,7 @@
           (list-ref args current)
           (set! current (add1 current)))))
 
-    (marco-parser gen)))
+    (parser:parse gen)))
 
 
 (define suite

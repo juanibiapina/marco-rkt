@@ -4,12 +4,12 @@
 (require "lexer.rkt")
 (require (prefix-in marco: "language.rkt"))
 
-(provide marco-parser)
+(provide parse)
 
 (define (on-error ok? name value)
   (raise (format "parse error near ~a" name)))
 
-(define marco-parser
+(define parse
   (parser
     (tokens marco-tokens)
     (error on-error)
