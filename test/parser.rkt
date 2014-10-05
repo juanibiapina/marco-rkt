@@ -9,13 +9,15 @@
 
 (define parse
   (lambda args
-    (define current 0)
+    (define current args)
 
     (define gen
       (lambda ()
-        (begin0
-          (list-ref args current)
-          (set! current (add1 current)))))
+        (if (null? current)
+          (token-<eof> eof)
+          (begin0
+            (car args)
+            (set! current (cdr args))))))
 
     (parser:parse gen)))
 
@@ -27,12 +29,12 @@
     (test-case
       "integers"
 
-      (check-equal? (parse (token-<integer> 0) (token-<eof> eof)) (m:integer 0)))
+      (check-equal? (parse (token-<integer> 0)) (m:integer 0)))
 
     (test-case
       "string"
 
-      (check-equal? (parse (token-<string> "some string") (token-<eof> eof)) (m:string "some string")))))
+      (check-equal? (parse (token-<string> "some string")) (m:string "some string")))))
 
 
 (require rackunit/text-ui)
