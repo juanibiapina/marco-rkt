@@ -1,13 +1,21 @@
 #lang racket
 
-(require parser-tools/yacc)
+(require
+  parser-tools/yacc
+  syntax/readerr)
+
 (require "lexer.rkt")
 (require (prefix-in marco: "language.rkt"))
 
 (provide parse)
 
-(define (on-error ok? name value)
-  (raise (format "parse error near ~a" name)))
+(define (on-error ok? name stx)
+  (raise-read-error (format "parse error near ~a" name)
+    (syntax-source stx)
+    (syntax-line stx)
+    (syntax-column stx)
+    (syntax-position stx)
+    (syntax-span stx)))
 
 (define parse
   (parser

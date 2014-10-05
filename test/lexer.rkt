@@ -6,11 +6,13 @@
 (require "../lexer.rkt")
 
 (define (lex value)
-  (marco-lexer (open-input-string value)))
+  ((make-token-gen (open-input-string value) #f)))
 
 (define suite
   (test-suite
     "lexer tests"
+
+    (check-equal? (lex "    1  ") (token-<integer> 1) "ignores whitespace")
 
     (test-case
       "integers"

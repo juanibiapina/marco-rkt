@@ -5,7 +5,7 @@
 (require
   "../lexer.rkt"
   (prefix-in parser: "../parser.rkt")
-  (prefix-in marco: "../language.rkt"))
+  (prefix-in m: "../language.rkt"))
 
 (define parse
   (lambda args
@@ -27,7 +27,7 @@
     (test-case
       "integers"
 
-      (check-equal? (parse (token-<integer> 0) (token-<eof> eof)) (marco:integer 0)))))
+      (check-equal? (parse (token-<integer> 0) (token-<eof> eof)) (m:integer 0)))))
 
 
 (require rackunit/text-ui)
