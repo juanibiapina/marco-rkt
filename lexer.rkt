@@ -18,7 +18,7 @@
   (lexer
     [(:+ lex:whitespace) (void)]
     [(eof) (token-<eof> eof)]
-    [numeric (token-<integer> (string->number lexeme))]))
+    [(:+ numeric) (token-<integer> (string->number lexeme))]))
 
 (define (make-token-gen port src)
   (port-count-lines! port)

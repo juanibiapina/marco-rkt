@@ -18,7 +18,9 @@
       "integers"
 
       (check-equal? (lex "0") (token-<integer> 0))
-      (check-equal? (lex "5") (token-<integer> 5)))))
+      (check-equal? (lex "5") (token-<integer> 5))
+      (check-equal? (lex "42") (token-<integer> 42))
+      (check-equal? (lex "19703461") (token-<integer> 19703461)))))
 
 
 (require rackunit/text-ui)
