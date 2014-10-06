@@ -7,6 +7,9 @@
   token-<string>
   token-<integer>
   token-<eof>
-  marco-tokens)
+  valued-tokens
+  empty-tokens)
 
-(define-tokens marco-tokens (<eof> <integer> <string>))
+(define-empty-tokens empty-tokens (<eof>))
+
+(define-tokens valued-tokens (<integer> <string>))

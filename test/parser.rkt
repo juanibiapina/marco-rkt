@@ -14,7 +14,7 @@
     (define gen
       (lambda ()
         (if (null? current)
-          (token-<eof> eof)
+          (token-<eof>)
           (begin0
             (car args)
             (set! current (cdr args))))))

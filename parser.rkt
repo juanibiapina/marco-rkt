@@ -19,7 +19,7 @@
 
 (define parse
   (parser
-    (tokens marco-tokens)
+    (tokens valued-tokens empty-tokens)
     (error on-error)
     (start <program>)
     (end <eof>)
