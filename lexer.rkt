@@ -15,9 +15,9 @@
 (define lex
   (lexer
     [(:+ lex:whitespace) (void)]
-    [(eof) (token-<eof>)]
-    [(:: #\" (:* (:~ #\")) #\") (token-<string> (substring lexeme 1 (- (string-length lexeme) 1)))]
-    [lex:integer (token-<integer> (string->number lexeme))]))
+    [(eof) (token <eof>)]
+    [(:: #\" (:* (:~ #\")) #\") (token <string> (substring lexeme 1 (- (string-length lexeme) 1)))]
+    [lex:integer (token <integer> (string->number lexeme))]))
 
 (define (make-token-gen port src)
   (port-count-lines! port)
