@@ -3,7 +3,7 @@
 (require
   rackunit
   rackunit/text-ui
-  "../lexer.rkt"
+  "../tokens.rkt"
   (prefix-in parser: "../parser.rkt")
   (prefix-in m: "../language.rkt"))
 

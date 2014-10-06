@@ -4,7 +4,7 @@
   parser-tools/yacc
   syntax/readerr)
 
-(require "lexer.rkt")
+(require "tokens.rkt")
 (require (prefix-in m: "language.rkt"))
 
 (provide parse)

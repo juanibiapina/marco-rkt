@@ -3,7 +3,8 @@
 (require
   rackunit
   rackunit/text-ui
-  "../lexer.rkt")
+  "../lexer.rkt"
+  "../tokens.rkt")
 
 (define (lex value)
   ((make-token-gen (open-input-string value) #f)))

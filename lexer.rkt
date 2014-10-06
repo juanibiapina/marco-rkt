@@ -2,20 +2,15 @@
 
 (require
   parser-tools/lex
-  (prefix-in : parser-tools/lex-sre))
+  (prefix-in : parser-tools/lex-sre)
+  "tokens.rkt")
 
 (provide
-  make-token-gen
-  token-<integer>
-  token-<string>
-  token-<eof>
-  marco-tokens)
+  make-token-gen)
 
 (define-lex-abbrevs
   [lex:whitespace (:or #\newline #\return #\tab #\space #\vtab)]
   [lex:integer (:: (:? #\-) (:+ numeric))])
-
-(define-tokens marco-tokens (<eof> <integer> <string>))
 
 (define lex
   (lexer
