@@ -23,6 +23,11 @@
     (test-case
       "string"
 
-      (check-equal? (parse "\"some string\"") (list (m:string "some string"))))))
+      (check-equal? (parse "\"some string\"") (list (m:string "some string"))))
+
+    (test-case
+      "application"
+
+      (check-equal? (parse "(5 6)") (list (m:application (list (m:integer 5) (m:integer 6))))))))
 
 (run-tests suite)

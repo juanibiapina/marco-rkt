@@ -28,6 +28,14 @@
      "strings"
 
      (check-equal? (lex "\"some string\"") (token <string> "some string") "a string")
-     (check-equal? (lex "\"\"") (token <string> "") "empty string"))))
+     (check-equal? (lex "\"\"") (token <string> "") "empty string"))
+
+    (test-case
+      "parenthesis"
+
+      (check-equal? (lex "(") (token <lparem>))
+      (check-equal? (lex ")") (token <rparem>)))
+
+    ))
 
 (run-tests suite)

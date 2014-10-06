@@ -17,6 +17,8 @@
     [(:+ lex:whitespace) (void)]
     [(eof) (token <eof>)]
     [(:: #\" (:* (:~ #\")) #\") (token <string> (substring lexeme 1 (- (string-length lexeme) 1)))]
+    [#\( (token <lparem>)]
+    [#\) (token <rparem>)]
     [lex:integer (token <integer> (string->number lexeme))]))
 
 (define (make-token-gen port src)

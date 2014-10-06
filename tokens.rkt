@@ -8,7 +8,7 @@
   valued-tokens
   empty-tokens)
 
-(define-empty-tokens empty-tokens (<eof>))
+(define-empty-tokens empty-tokens (<eof> <lparem> <rparem>))
 
 (define-tokens valued-tokens (<integer> <string>))
 

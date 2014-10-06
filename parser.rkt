@@ -9,13 +9,16 @@
 
 (provide parse)
 
-(define (on-error ok? name stx)
-  (raise-read-error (format "parse error near ~a" name)
-    (syntax-source stx)
-    (syntax-line stx)
-    (syntax-column stx)
-    (syntax-position stx)
-    (syntax-span stx)))
+(define (on-error tok-ok? name stx)
+  (if (not tok-ok?)
+    (raise-read-error (format "parse error near ~a" name)
+                      (syntax-source stx)
+                      (syntax-line stx)
+                      (syntax-column stx)
+                      (syntax-position stx)
+                      (syntax-span stx))
+    (raise-read-error (format "unexpected token ~a" name)
+                      #f #f #f #f #f)))
 
 (define parse
   (parser
@@ -27,6 +30,8 @@
       (<program> [(<form> <form-tail>) (cons $1 $2)]
                  [(<form>) (list $1)])
       (<form> [(<integer>) (m:integer $1)]
-              [(<string>) (m:string $1)])
+              [(<string>) (m:string $1)]
+              [(<application>) $1])
+      (<application> [(<lparem> <form-tail> <rparem>) (m:application $2)])
       (<form-tail> [(<form> <form-tail>) (cons $1 $2)]
                    [(<form>) (list $1)]))))
