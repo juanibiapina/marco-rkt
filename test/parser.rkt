@@ -3,24 +3,13 @@
 (require
   rackunit
   rackunit/text-ui
-  "../tokens.rkt"
+  "../lexer.rkt"
   (prefix-in parser: "../parser.rkt")
   (prefix-in m: "../language.rkt"))
 
-(define parse
-  (lambda args
-    (define current args)
-
-    (define gen
-      (lambda ()
-        (if (null? current)
-          (token <eof>)
-          (begin0
-            (car args)
-            (set! current (cdr args))))))
-
-    (parser:parse gen)))
-
+(define (parse str)
+  (define token-gen (make-token-gen (open-input-string str) #f))
+  (parser:parse token-gen))
 
 (define suite
   (test-suite
@@ -29,11 +18,11 @@
     (test-case
       "integers"
 
-      (check-equal? (parse (token <integer> 0)) (list (m:integer 0))))
+      (check-equal? (parse "0") (list (m:integer 0))))
 
     (test-case
       "string"
 
-      (check-equal? (parse (token <string> "some string")) (list (m:string "some string"))))))
+      (check-equal? (parse "\"some string\"") (list (m:string "some string"))))))
 
 (run-tests suite)
