@@ -24,5 +24,9 @@
     (start <program>)
     (end <eof>)
     (grammar
-      (<program> [(<integer>) (m:integer $1)]
-                 [(<string>) (m:string $1)]))))
+      (<program> [(<form> <form-tail>) (cons $1 $2)]
+                 [(<form>) (list $1)])
+      (<form> [(<integer>) (m:integer $1)]
+              [(<string>) (m:string $1)])
+      (<form-tail> [(<form> <form-tail>) (cons $1 $2)]
+                   [(<form>) (list $1)]))))

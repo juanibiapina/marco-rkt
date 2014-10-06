@@ -29,11 +29,11 @@
     (test-case
       "integers"
 
-      (check-equal? (parse (token-<integer> 0)) (m:integer 0)))
+      (check-equal? (parse (token-<integer> 0)) (list (m:integer 0))))
 
     (test-case
       "string"
 
-      (check-equal? (parse (token-<string> "some string")) (m:string "some string")))))
+      (check-equal? (parse (token-<string> "some string")) (list (m:string "some string"))))))
 
 (run-tests suite)
