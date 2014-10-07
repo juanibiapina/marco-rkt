@@ -16,19 +16,9 @@
     (check-equal? (lex "    1  ") (token <integer> 1) "ignores whitespace")
 
     (test-case
-      "integers"
+      "name"
 
-      (check-equal? (lex "0") (token <integer> 0))
-      (check-equal? (lex "5") (token <integer> 5))
-      (check-equal? (lex "42") (token <integer> 42))
-      (check-equal? (lex "19703461") (token <integer> 19703461))
-      (check-equal? (lex "-1") (token <integer> -1)))
-
-    (test-case
-     "strings"
-
-     (check-equal? (lex "\"some string\"") (token <string> "some string") "a string")
-     (check-equal? (lex "\"\"") (token <string> "") "empty string"))
+      (check-equal? (lex "simplename") (token <name> "simplename") "simple name"))
 
     (test-case
       "parenthesis"

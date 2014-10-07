@@ -2,10 +2,9 @@
 
 (require
   parser-tools/yacc
-  syntax/readerr)
-
-(require "tokens.rkt")
-(require (prefix-in m: "language.rkt"))
+  syntax/readerr
+  "tokens.rkt"
+  (prefix-in m: "language.rkt"))
 
 (provide parse)
 
@@ -27,10 +26,12 @@
     (start <program>)
     (end <eof>)
     (grammar
-      (<program> [(<form> <form-tail>) (cons $1 $2)]
-                 [(<form>) (list $1)])
+      (<program> [() (m:program #f)]
+                 [(<form> <form-tail>) (m:program (cons $1 $2))]
+                 [(<form>) (m:program (list $1))])
       (<form> [(<integer>) (m:integer $1)]
               [(<string>) (m:string $1)]
+              [(<name>) (m:name $1)]
               [(<application>) $1])
       (<application> [(<lparem> <form-tail> <rparem>) (m:application $2)])
       (<form-tail> [(<form> <form-tail>) (cons $1 $2)]
