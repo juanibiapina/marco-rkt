@@ -2,28 +2,15 @@
 
 (require
   rackunit
-  rackunit/text-ui
   parser-tools/lex
   "../tokens.rkt")
 
-(define suite
-  (test-suite
-    "token tests"
+(define teof (token <eof>))
 
-    (test-case
-      "empty token"
+(check-equal? (token-name teof) '<eof>)
+(check-equal? (token-value teof) #f)
 
-      (define t (token <eof>))
+(define t4 (token <integer> 4))
 
-      (check-equal? (token-name t) '<eof>)
-      (check-equal? (token-value t) #f))
-
-    (test-case
-      "valued token"
-
-      (define t (token <integer> 4))
-
-      (check-equal? (token-name t) '<integer>)
-      (check-equal? (token-value t) 4))))
-
-(run-tests suite)
+(check-equal? (token-name t4) '<integer>)
+(check-equal? (token-value t4) 4)
