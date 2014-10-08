@@ -20,6 +20,7 @@
     [#\( (token <lparem>)]
     [#\) (token <rparem>)]
     [(:+ alphabetic) (token <name> lexeme)]
+    [(:: #\: (:+ alphabetic)) (token <symbol> (substring lexeme 1))]
     [lex:integer (token <integer> (string->number lexeme))]))
 
 (define (make-token-gen port src)

@@ -10,7 +10,7 @@
 
 (define-empty-tokens empty-tokens (<eof> <lparem> <rparem>))
 
-(define-tokens valued-tokens (<integer> <string> <name>))
+(define-tokens valued-tokens (<integer> <string> <name> <symbol>))
 
 (define-syntax (token stx)
   (syntax-case stx ()

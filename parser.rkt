@@ -31,6 +31,7 @@
                  [(<form>) (m:program (list $1))])
       (<form> [(<integer>) (m:integer $1)]
               [(<string>) (m:string $1)]
+              [(<symbol>) (m:symbol $1)]
               [(<name>) (m:name $1)]
               [(<application>) $1])
       (<application> [(<lparem> <form-tail> <rparem>) (m:application $2)])
