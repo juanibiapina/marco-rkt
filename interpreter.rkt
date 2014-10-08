@@ -20,7 +20,7 @@
     [(m:integer _) exp]
     [(m:string _) exp]
     [(m:symbol _) exp]
-    [(m:name name) (lookup-env env name)]
+    [(m:name name) (lookup env name)]
     [(m:native-body l)
      (l env env)]
     [(m:closure _ _) exp]
@@ -36,7 +36,7 @@
          [extended-env
            (foldl
              (lambda (formal arg result-env)
-               (extend-env
+               (extend
                  result-env
                  formal
                  arg))

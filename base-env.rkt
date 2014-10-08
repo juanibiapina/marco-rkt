@@ -10,8 +10,8 @@
 
 (define (make-base-env)
   (let ([env (make-env)])
-    (extend-env
-      (extend-env
+    (extend
+      (extend
         env
         "nil"
         m:base:nil)

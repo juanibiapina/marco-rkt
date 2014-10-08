@@ -15,8 +15,8 @@
     (list "name" "value")
     (m:native-body
       (lambda (closure dynamic)
-        (extend-env
+        (extend
           dynamic
-          (lookup-env closure "name")
-          (lookup-env closure "value"))
+          (lookup closure "name")
+          (lookup closure "value"))
         nil))))
