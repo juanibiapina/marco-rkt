@@ -5,14 +5,18 @@
   extend
   lookup)
 
+(struct environment (bindings))
+
 (define (make-env)
-  null)
+  (environment null))
 
 (define (extend env name value)
-  (cons (cons name value) env))
+  (environment (cons (cons name value) (environment-bindings env))))
 
 (define (lookup env name)
-  (cond
-    [(null? env) (error (format "Unbound name: ~a" name))]
-    [(equal? (caar env) name) (cdar env)]
-    [#t (lookup (cdr env) name)]))
+  (let ([bindings (environment-bindings env)])
+    (let loop ([bindings bindings])
+      (cond
+        [(null? bindings) (error (format "Unbound name: ~a" name))]
+        [(equal? (caar bindings) name) (cdar bindings)]
+        [#t (loop (cdr bindings))]))))
