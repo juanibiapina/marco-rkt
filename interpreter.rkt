@@ -16,7 +16,10 @@
     [(m:program #f)
      void]
     [(m:program (list exprs ...))
-     (last (map (lambda (e) (eval e env)) exprs))]
+     (let loop ([exprs exprs] [result #f])
+       (if (null? exprs)
+         result
+         (loop (cdr exprs) (eval (car exprs) env))))]
     [(m:integer _) exp]
     [(m:string _) exp]
     [(m:symbol _) exp]
