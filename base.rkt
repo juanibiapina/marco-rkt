@@ -15,8 +15,8 @@
     (list "name" "value")
     (m:native-block
       (lambda (closure dynamic)
-        (extend
+        (mutate
           dynamic
-          (lookup closure "name")
+          (m:symbol-name (lookup closure "name"))
           (lookup closure "value"))
         nil))))
