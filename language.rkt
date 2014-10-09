@@ -13,3 +13,4 @@
 (struct closure (env function) #:transparent)
 (struct nil () #:transparent)
 (struct symbol (name) #:transparent)
+(struct module (env exports))

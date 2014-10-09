@@ -5,7 +5,7 @@
   (prefix-in m: "../language.rkt"))
 
 (provide
-  (all-defined-out))
+  core)
 
 (define nil
   (m:nil))
@@ -20,3 +20,15 @@
           (m:symbol-name (lookup closure "name"))
           (lookup closure "value"))
         nil))))
+
+(define core
+  (let ([env (make-env)])
+    (m:module
+      env
+      (list
+        (cons
+          (m:symbol "nil")
+          nil)
+        (cons
+          (m:symbol "def")
+          (m:closure env def))))))
