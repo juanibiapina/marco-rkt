@@ -20,9 +20,8 @@
     [(m:integer _) exp]
     [(m:string _) exp]
     [(m:symbol _) exp]
+    [(m:native-block _) exp]
     [(m:name name) (lookup env name)]
-    [(m:native-body l)
-     (l env env)]
     [(m:closure _ _) exp]
     [(m:application (list forms ...))
      (let* ([eforms (map (lambda (e) (eval e env)) forms)]
@@ -41,7 +40,12 @@
                  formal
                  arg))
              (m:closure-env closure) formal args)])
-    (eval (m:function-body f) extended-env)))
+    (invoke (m:function-body f) extended-env env)))
+
+(define (invoke block closure dynamic)
+  (match block
+    [(m:native-block l)
+     (l closure dynamic)]))
 
 (define (eval-string str)
   (define token-gen (make-token-gen (open-input-string str) #f))

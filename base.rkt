@@ -13,7 +13,7 @@
 (define def
   (m:function
     (list "name" "value")
-    (m:native-body
+    (m:native-block
       (lambda (closure dynamic)
         (extend
           dynamic
