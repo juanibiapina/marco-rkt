@@ -3,17 +3,17 @@
 (require
   "environment.rkt"
   (prefix-in m: "language.rkt")
-  (prefix-in m:base: "base.rkt"))
+  (prefix-in m:core: "modules/core.rkt"))
 
 (provide
-  make-base-env)
+  make-core-env)
 
-(define (make-base-env)
+(define (make-core-env)
   (let ([env (make-env)])
     (extend
       (extend
         env
         "nil"
-        m:base:nil)
+        m:core:nil)
     "def"
-    (m:closure env m:base:def))))
+    (m:closure env m:core:def))))

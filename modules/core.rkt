@@ -1,8 +1,8 @@
 #lang racket
 
 (require
-  "environment.rkt"
-  (prefix-in m: "language.rkt"))
+  "../environment.rkt"
+  (prefix-in m: "../language.rkt"))
 
 (provide
   (all-defined-out))

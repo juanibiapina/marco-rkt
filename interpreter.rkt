@@ -3,7 +3,7 @@
 (require
   "lexer.rkt"
   "parser.rkt"
-  "base-env.rkt"
+  "core-env.rkt"
   "environment.rkt"
   (prefix-in m: "language.rkt")
   (for-syntax (only-in racket/string string-join)))
@@ -53,7 +53,7 @@
 (define (eval-string str)
   (define token-gen (make-token-gen (open-input-string str) #f))
   (define ast (parse token-gen))
-  (eval ast (make-base-env)))
+  (eval ast (make-core-env)))
 
 (define-syntax (marco stx)
   (with-syntax ([code (string-join (map (lambda (s) (format "~s" (syntax->datum s))) (cdr (syntax-e stx))) " ")])
