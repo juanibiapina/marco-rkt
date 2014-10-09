@@ -9,6 +9,8 @@
   (for-syntax (only-in racket/string string-join)))
 
 (provide
+  eval
+  eval-port
   marco)
 
 (define (eval exp env)
@@ -52,6 +54,11 @@
 
 (define (eval-string str)
   (define token-gen (make-token-gen (open-input-string str) #f))
+  (define ast (parse token-gen))
+  (eval ast (make-core-env)))
+
+(define (eval-port port)
+  (define token-gen (make-token-gen port #f))
   (define ast (parse token-gen))
   (eval ast (make-core-env)))
 

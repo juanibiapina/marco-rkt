@@ -21,6 +21,15 @@
           (lookup closure "value"))
         nil))))
 
+(define print
+  (m:function
+    (list "value")
+    (m:native-block
+      (lambda (closure dynamic)
+        (match (lookup closure "value")
+          [(m:string v) (display v)])
+        nil))))
+
 (define core
   (let ([env (make-env)])
     (m:module
@@ -31,4 +40,7 @@
           nil)
         (cons
           (m:symbol "def")
-          (m:closure env def))))))
+          (m:closure env def))
+        (cons
+          (m:symbol "print")
+          (m:closure env print))))))
