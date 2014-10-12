@@ -5,8 +5,7 @@
   "lang/parser.rkt"
   "interpreter.rkt"
   "environment.rkt"
-  "core-env.rkt"
-  (for-syntax (only-in racket/string string-join)))
+  "core-env.rkt")
 
 (provide
   marco
