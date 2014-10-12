@@ -11,8 +11,9 @@
 
 (define-lex-abbrevs
   [lex:whitespace (:or #\newline #\return #\tab #\space #\vtab)]
+  [lex:comment (:: #\/ #\/ any-string)]
   [lex:integer (:: (:? #\-) (:+ numeric))]
-  [lex:identifier (:+ (:or alphabetic #\-))])
+  [lex:identifier (:+ (:or alphabetic #\- #\?))])
 
 (define (make-nested-name str)
   (token <nested-name> (string-split str ".")))
@@ -20,6 +21,7 @@
 (define lex
   (lexer
     [(:+ lex:whitespace) (void)]
+    [lex:comment (void)]
     [(eof) (token <eof>)]
     [(:: #\" (:* (:~ #\")) #\") (token <string> (substring lexeme 1 (- (string-length lexeme) 1)))]
     [#\( (token <lparem>)]

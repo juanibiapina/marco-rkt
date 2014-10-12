@@ -1,8 +1,4 @@
-#lang racket
+#lang marco
 
-(require
-  rackunit
-  (only-in "../../../loader.rkt" marco)
-  "../../../language.rkt")
-
-(check-equal? (marco "nil") (nil))
+nil
+(check-equal? nil nil)
