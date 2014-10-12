@@ -3,7 +3,7 @@
 (require
   rackunit
   parser-tools/lex
-  "../tokens.rkt")
+  "../../tokens.rkt")
 
 (define teof (token <eof>))
 

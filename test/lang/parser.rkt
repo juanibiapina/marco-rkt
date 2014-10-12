@@ -3,9 +3,9 @@
 (require
   rackunit
   rackunit/text-ui
-  "../lexer.rkt"
-  (prefix-in parser: "../parser.rkt")
-  (prefix-in m: "../language.rkt"))
+  "../../lexer.rkt"
+  (prefix-in parser: "../../parser.rkt")
+  (prefix-in m: "../../language.rkt"))
 
 (define (parse str)
   (define token-gen (make-token-gen (open-input-string str) #f))
