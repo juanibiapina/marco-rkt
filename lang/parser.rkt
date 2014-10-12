@@ -4,7 +4,7 @@
   parser-tools/yacc
   syntax/readerr
   "tokens.rkt"
-  (prefix-in m: "language.rkt"))
+  (prefix-in m: "../language.rkt"))
 
 (provide parse)
 

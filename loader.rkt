@@ -1,8 +1,8 @@
 #lang racket
 
 (require
-  "lexer.rkt"
-  "parser.rkt"
+  "lang/lexer.rkt"
+  "lang/parser.rkt"
   "interpreter.rkt"
   "environment.rkt"
   "core-env.rkt"

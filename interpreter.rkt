@@ -1,8 +1,8 @@
 #lang racket
 
 (require
-  "lexer.rkt"
-  "parser.rkt"
+  "lang/lexer.rkt"
+  "lang/parser.rkt"
   "environment.rkt"
   (prefix-in m: "language.rkt")
   (for-syntax (only-in racket/string string-join)))

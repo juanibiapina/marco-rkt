@@ -2,8 +2,8 @@
 
 (require
   rackunit
-  "../../lexer.rkt"
-  "../../tokens.rkt")
+  "../../lang/lexer.rkt"
+  "../../lang/tokens.rkt")
 
 (define (lex value)
   ((make-token-gen (open-input-string value) #f)))

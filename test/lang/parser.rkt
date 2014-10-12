@@ -3,8 +3,8 @@
 (require
   rackunit
   rackunit/text-ui
-  "../../lexer.rkt"
-  (prefix-in parser: "../../parser.rkt")
+  "../../lang/lexer.rkt"
+  (prefix-in parser: "../../lang/parser.rkt")
   (prefix-in m: "../../language.rkt"))
 
 (define (parse str)
