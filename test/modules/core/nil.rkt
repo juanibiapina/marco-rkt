@@ -2,7 +2,7 @@
 
 (require
   rackunit
-  (only-in "../../../interpreter.rkt" marco)
+  (only-in "../../../loader.rkt" marco)
   "../../../language.rkt")
 
-(check-equal? (marco nil) (nil))
+(check-equal? (marco "nil") (nil))

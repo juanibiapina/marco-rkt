@@ -26,14 +26,22 @@
     (start <program>)
     (end <eof>)
     (grammar
-      (<program> [() (m:program #f)]
-                 [(<form> <form-tail>) (m:program (cons $1 $2))]
-                 [(<form>) (m:program (list $1))])
-      (<form> [(<integer>) (m:integer $1)]
-              [(<string>) (m:string $1)]
-              [(<symbol>) (m:symbol $1)]
-              [(<name>) (m:name $1)]
-              [(<application>) $1])
-      (<application> [(<lparem> <form-tail> <rparem>) (m:application $2)])
-      (<form-tail> [(<form> <form-tail>) (cons $1 $2)]
-                   [(<form>) (list $1)]))))
+      (<program>
+        [() (m:program #f)]
+        [(<form> <form-tail>) (m:program (cons $1 $2))]
+        [(<form>) (m:program (list $1))])
+      (<form>
+        [(<integer>) (m:integer $1)]
+        [(<string>) (m:string $1)]
+        [(<symbol>) (m:symbol $1)]
+        [(<nested-name>) (m:nested-name $1)]
+        [(<name>) (m:name $1)]
+        [(<list>) (m:list $1)]
+        [(<application>) $1])
+      (<list>
+        [(<lbracket> <form-tail> <rbracket>) $2])
+      (<application>
+        [(<lparem> <form-tail> <rparem>) (m:application $2)])
+      (<form-tail>
+        [(<form> <form-tail>) (cons $1 $2)]
+        [(<form>) (list $1)]))))

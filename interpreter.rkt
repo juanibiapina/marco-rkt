@@ -3,15 +3,19 @@
 (require
   "lexer.rkt"
   "parser.rkt"
-  "core-env.rkt"
   "environment.rkt"
   (prefix-in m: "language.rkt")
   (for-syntax (only-in racket/string string-join)))
 
 (provide
   eval
-  eval-port
-  marco)
+  eval-into-module)
+
+(define (eval-into-module port env)
+  (let* ([token-gen (make-token-gen port #f)]
+         [ast (parse token-gen)]
+         [result (eval ast env)])
+    (m:make-module env)))
 
 (define (eval exp env)
   (match exp
@@ -27,7 +31,25 @@
     [(m:symbol _) exp]
     [(m:native-block _) exp]
     [(m:name name) (lookup env name)]
+    [(m:nested-name names)
+     (let* ([module (lookup env (car names))]
+            [exports (m:module-exports module)])
+       (if (null? exports)
+         (error (format "Module doesn't export binding ~a" (cadr names)))
+         (foldl
+           (lambda (name result)
+             (let ([exports (m:module-exports result)])
+               (let loop ([exports exports])
+                 (cond
+                   [(null? exports)
+                    (error (format "Module doesn't export binding '~a'" name))]
+                   [(equal? (caar exports) name) (cdar exports)]
+                   [#t (loop (cdr exports))]))))
+           module
+           (cdr names))))]
     [(m:closure _ _) exp]
+    [(m:list forms)
+     (m:list (map (lambda (e) (eval e env)) forms))]
     [(m:application (list forms ...))
      (let* ([eforms (map (lambda (e) (eval e env)) forms)]
             [closure (car eforms)]
@@ -51,17 +73,3 @@
   (match block
     [(m:native-block l)
      (l closure dynamic)]))
-
-(define (eval-string str)
-  (define token-gen (make-token-gen (open-input-string str) #f))
-  (define ast (parse token-gen))
-  (eval ast (make-core-env)))
-
-(define (eval-port port)
-  (define token-gen (make-token-gen port #f))
-  (define ast (parse token-gen))
-  (eval ast (make-core-env)))
-
-(define-syntax (marco stx)
-  (with-syntax ([code (string-join (map (lambda (s) (format "~s" (syntax->datum s))) (cdr (syntax-e stx))) " ")])
-    (syntax (eval-string code))))

@@ -8,9 +8,13 @@
   valued-tokens
   empty-tokens)
 
-(define-empty-tokens empty-tokens (<eof> <lparem> <rparem>))
+(define-empty-tokens
+  empty-tokens
+  (<eof> <lparem> <rparem> <lbracket> <rbracket>))
 
-(define-tokens valued-tokens (<integer> <string> <name> <symbol>))
+(define-tokens
+  valued-tokens
+  (<integer> <string> <name> <symbol> <nested-name>))
 
 (define-syntax (token stx)
   (syntax-case stx ()

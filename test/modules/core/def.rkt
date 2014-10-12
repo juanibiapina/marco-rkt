@@ -2,6 +2,6 @@
 
 (require
   rackunit
-  (only-in "../../../interpreter.rkt" marco))
+  (only-in "../../../loader.rkt" marco))
 
-(check-equal? (marco (def :x 1) x) (marco 1))
+(check-equal? (marco "(def :x 1) x") (marco "1"))

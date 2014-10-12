@@ -3,6 +3,7 @@
 (require
   parser-tools/lex
   (prefix-in : parser-tools/lex-sre)
+  racket/string
   "tokens.rkt")
 
 (provide
@@ -10,7 +11,11 @@
 
 (define-lex-abbrevs
   [lex:whitespace (:or #\newline #\return #\tab #\space #\vtab)]
-  [lex:integer (:: (:? #\-) (:+ numeric))])
+  [lex:integer (:: (:? #\-) (:+ numeric))]
+  [lex:identifier (:+ (:or alphabetic #\-))])
+
+(define (make-nested-name str)
+  (token <nested-name> (string-split str ".")))
 
 (define lex
   (lexer
@@ -19,8 +24,12 @@
     [(:: #\" (:* (:~ #\")) #\") (token <string> (substring lexeme 1 (- (string-length lexeme) 1)))]
     [#\( (token <lparem>)]
     [#\) (token <rparem>)]
-    [(:+ alphabetic) (token <name> lexeme)]
-    [(:: #\: (:+ alphabetic)) (token <symbol> (substring lexeme 1))]
+    [#\[ (token <lbracket>)]
+    [#\] (token <rbracket>)]
+    [(:: lex:identifier (:+ (:: #\. lex:identifier)))
+     (make-nested-name lexeme)]
+    [lex:identifier (token <name> lexeme)]
+    [(:: #\: lex:identifier) (token <symbol> (substring lexeme 1))]
     [lex:integer (token <integer> (string->number lexeme))]))
 
 (define (make-token-gen port src)

@@ -2,6 +2,7 @@
 
 (require
   "../environment.rkt"
+  "../interpreter.rkt"
   (prefix-in m: "../language.rkt"))
 
 (provide
@@ -30,6 +31,42 @@
           [(m:string v) (display v)])
         nil))))
 
+(define require
+  (m:function
+    (list "name")
+    (m:native-block
+      (lambda (closure dynamic)
+        (let* ([name (lookup closure "name")]
+               [module-path (m:string-v (lookup dynamic "module-path"))]
+               [path (string-append module-path "/" (m:string-v name) ".mrc")])
+          (call-with-input-file
+            path
+            (lambda (port)
+              (eval-into-module port dynamic))))))))
+
+(define export-fun
+  (m:function
+    (list "names")
+    (m:native-block
+      (lambda (closure dynamic)
+        (let* ([names (map
+                        (lambda (name)
+                          (m:symbol-name name))
+                        (m:list-forms (lookup closure "names")))]
+               [values (map
+                         (lambda (e)
+                           (lookup dynamic e))
+                         names)])
+          (map
+            (lambda (name value)
+              (export
+                dynamic
+                name
+                value))
+            names
+            values)
+          nil)))))
+
 (define core
   (let ([env (make-env)])
     (m:module
@@ -43,4 +80,10 @@
           (m:closure env def))
         (cons
           (m:symbol "print")
-          (m:closure env print))))))
+          (m:closure env print))
+        (cons
+          (m:symbol "require")
+          (m:closure env require))
+        (cons
+          (m:symbol "export")
+          (m:closure env export-fun))))))

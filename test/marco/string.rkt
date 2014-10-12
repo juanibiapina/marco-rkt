@@ -2,8 +2,8 @@
 
 (require
   rackunit
-  (only-in "../../interpreter.rkt" marco)
+  (only-in "../../loader.rkt" marco)
   "../../language.rkt")
 
-(check-equal? (marco "some string") (string "some string") "a string")
-(check-equal? (marco "") (string "") "empty string")
+(check-equal? (marco "\"some string\"") (string "some string") "a string")
+(check-equal? (marco "\"\"") (string "") "empty string")
