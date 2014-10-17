@@ -23,5 +23,5 @@
       env
       (list
         (cons
-          (m:symbol "check-equal?")
+          "check-equal?"
           (m:closure env check-equal?-fun))))))

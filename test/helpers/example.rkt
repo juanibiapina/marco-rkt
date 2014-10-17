@@ -21,5 +21,5 @@
                      [current-input-port input-port])
         (eval-with-bindings
           port
-          (cons "module-path" (m:string "../../lib"))))
+          (cons "module-path" (m:string "../../modules"))))
       (get-output-string result))))

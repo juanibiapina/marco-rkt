@@ -46,11 +46,10 @@
       (lambda (closure dynamic)
         (let* ([name (lookup closure "name")]
                [module-path (m:string-v (lookup dynamic "module-path"))]
-               [path (string-append module-path "/" (m:string-v name) ".mrc")])
-          (call-with-input-file
-            path
-            (lambda (port)
-              (eval-into-module port dynamic))))))))
+               [path (string-append module-path "/" (m:string-v name) ".rkt")])
+          (dynamic-require
+            (string->path path)
+            'module))))))
 
 (define export-fun
   (m:function
@@ -81,26 +80,26 @@
       env
       (list
         (cons
-          (m:symbol "nil")
+          "nil"
           nil)
         (cons
-          (m:symbol "nil?")
+          "nil?"
           (m:closure env nil?-fun))
         (cons
-          (m:symbol "true")
+          "true"
           (m:boolean #t))
         (cons
-          (m:symbol "false")
+          "false"
           (m:boolean #f))
         (cons
-          (m:symbol "def")
+          "def"
           (m:closure env def))
         (cons
-          (m:symbol "print")
+          "print"
           (m:closure env print))
         (cons
-          (m:symbol "require")
+          "require"
           (m:closure env require))
         (cons
-          (m:symbol "export")
+          "export"
           (m:closure env export-fun))))))

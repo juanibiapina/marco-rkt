@@ -21,6 +21,7 @@
 (struct module (env exports))
 (struct list (forms) #:transparent)
 (struct boolean (value) #:transparent)
+(struct port (value) #:transparent)
 
 (define (make-module env)
   (module env (get-exports env)))

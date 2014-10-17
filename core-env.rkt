@@ -19,7 +19,7 @@
       (lambda (export env)
         (extend
           env
-          (m:symbol-name (car export))
+          (car export)
           (cdr export)))
       env
       exports)))
