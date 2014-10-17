@@ -6,7 +6,7 @@
   (prefix-in m: "../language.rkt"))
 
 (provide
-  core)
+  module)
 
 (define nil
   (m:nil))
@@ -74,7 +74,7 @@
             values)
           nil)))))
 
-(define core
+(define module
   (let ([env (make-env)])
     (m:module
       env

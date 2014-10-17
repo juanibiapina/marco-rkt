@@ -1,4 +1,5 @@
 - require racket or marco modules
 - def tests
 - remove unit from core
-- better define modules in racket
+- module exports should map from symbols (instead of strings) to values
+- include function
