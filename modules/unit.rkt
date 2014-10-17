@@ -6,7 +6,7 @@
   (prefix-in m: "../language.rkt"))
 
 (provide
-  marcounit)
+  unit)
 
 (define check-equal?-fun
   (m:function
@@ -17,7 +17,7 @@
               [expected (lookup closure "expected")])
           (check-equal? actual expected))))))
 
-(define marcounit
+(define unit
   (let ([env (make-env)])
     (m:module
       env
