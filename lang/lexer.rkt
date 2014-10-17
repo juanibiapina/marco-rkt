@@ -20,8 +20,8 @@
 
 (define lex
   (lexer
-    [(:+ lex:whitespace) (void)]
-    [lex:comment (void)]
+    [(:+ lex:whitespace) (lex input-port)]
+    [lex:comment (lex input-port)]
     [(eof) (token <eof>)]
     [(:: #\" (:* (:~ #\")) #\") (token <string> (substring lexeme 1 (- (string-length lexeme) 1)))]
     [#\( (token <lparem>)]
@@ -37,8 +37,4 @@
 (define (make-token-gen port src)
   (port-count-lines! port)
   (lambda ()
-    (let loop ()
-      (let ([v (lex port)])
-        (if (void? v)
-          (loop)
-          v)))))
+    (lex port)))
