@@ -1,3 +1,4 @@
 - require racket or marco modules
 - def tests
 - remove unit from core
+- better define modules in racket

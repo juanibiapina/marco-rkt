@@ -11,6 +11,14 @@
 (define nil
   (m:nil))
 
+(define nil?-fun
+  (m:function
+    (list "value")
+    (m:native-block
+      (lambda (closure dynamic)
+        (let ([value (lookup closure "value")])
+          (m:boolean (m:nil? value)))))))
+
 (define def
   (m:function
     (list "name" "value")
@@ -75,6 +83,15 @@
         (cons
           (m:symbol "nil")
           nil)
+        (cons
+          (m:symbol "nil?")
+          (m:closure env nil?-fun))
+        (cons
+          (m:symbol "true")
+          (m:boolean #t))
+        (cons
+          (m:symbol "false")
+          (m:boolean #f))
         (cons
           (m:symbol "def")
           (m:closure env def))

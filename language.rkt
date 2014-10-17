@@ -20,6 +20,7 @@
 (struct symbol (name) #:transparent)
 (struct module (env exports))
 (struct list (forms) #:transparent)
+(struct boolean (value) #:transparent)
 
 (define (make-module env)
   (module env (get-exports env)))
