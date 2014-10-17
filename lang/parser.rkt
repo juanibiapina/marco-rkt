@@ -36,10 +36,11 @@
         [(<symbol>) (m:symbol $1)]
         [(<nested-name>) (m:nested-name $1)]
         [(<name>) (m:name $1)]
-        [(<list>) (m:list $1)]
+        [(<list>) $1]
         [(<application>) $1])
       (<list>
-        [(<lbracket> <form-tail> <rbracket>) $2])
+        [(<lbracket> <rbracket>) (m:nil)]
+        [(<lbracket> <form-tail> <rbracket>) (m:list $2)])
       (<application>
         [(<lparem> <form-tail> <rparem>) (m:application $2)])
       (<form-tail>

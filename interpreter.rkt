@@ -26,6 +26,7 @@
        (if (null? exprs)
          result
          (loop (cdr exprs) (eval (car exprs) env))))]
+    [(m:nil) exp]
     [(m:integer _) exp]
     [(m:string _) exp]
     [(m:symbol _) exp]
