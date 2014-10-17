@@ -20,7 +20,7 @@
 (define (eval exp env)
   (match exp
     [(m:program #f)
-     void]
+     (void)]
     [(m:program (list exprs ...))
      (let loop ([exprs exprs] [result #f])
        (if (null? exprs)
