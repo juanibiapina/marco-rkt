@@ -19,7 +19,7 @@
   (token <nested-name> (string-split str ".")))
 
 (define lex
-  (lexer
+  (lexer-src-pos
     [(:+ lex:whitespace) (void)]
     [lex:comment (void)]
     [(eof) (token <eof>)]
@@ -39,6 +39,6 @@
   (lambda ()
     (let loop ()
       (let ([v (lex port)])
-        (if (void? v)
+        (if (void? (position-token-token v))
           (loop)
           v)))))

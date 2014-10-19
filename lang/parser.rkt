@@ -8,7 +8,7 @@
 
 (provide parse)
 
-(define (on-error tok-ok? name stx)
+(define (on-error tok-ok? name stx start-pos end-pos)
   (if (not tok-ok?)
     (raise-read-error (format "parse error near ~a" name)
                       (syntax-source stx)
@@ -25,6 +25,7 @@
     (error on-error)
     (start <program>)
     (end <eof>)
+    (src-pos)
     (grammar
       (<program>
         [() (m:program #f)]
