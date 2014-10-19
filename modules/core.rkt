@@ -1,7 +1,6 @@
 #lang racket
 
 (require
-  "../environment.rkt"
   "../interpreter.rkt"
   (prefix-in m: "../language.rkt"))
 
@@ -16,7 +15,7 @@
     (list "value")
     (m:native-block
       (lambda (closure dynamic)
-        (let ([value (lookup closure "value")])
+        (let ([value (m:lookup closure "value")])
           (m:boolean (m:nil? value)))))))
 
 (define def
@@ -24,10 +23,10 @@
     (list "name" "value")
     (m:native-block
       (lambda (closure dynamic)
-        (mutate
+        (m:extend!
           dynamic
-          (m:symbol-name (lookup closure "name"))
-          (lookup closure "value"))
+          (m:symbol-name (m:lookup closure "name"))
+          (m:lookup closure "value"))
         nil))))
 
 (define print
@@ -35,7 +34,7 @@
     (list "value")
     (m:native-block
       (lambda (closure dynamic)
-        (match (lookup closure "value")
+        (match (m:lookup closure "value")
           [(m:string v) (display v)])
         nil))))
 
@@ -44,8 +43,8 @@
     (list "name")
     (m:native-block
       (lambda (closure dynamic)
-        (let* ([name (lookup closure "name")]
-               [module-path (m:string-v (lookup dynamic "module-path"))]
+        (let* ([name (m:lookup closure "name")]
+               [module-path (m:string-v (m:lookup dynamic "module-path"))]
                [path (string-append module-path "/" (m:string-v name) ".rkt")])
           (dynamic-require
             (string->path path)
@@ -59,14 +58,14 @@
         (let* ([names (map
                         (lambda (name)
                           (m:symbol-name name))
-                        (m:list-forms (lookup closure "names")))]
+                        (m:list-forms (m:lookup closure "names")))]
                [values (map
                          (lambda (e)
-                           (lookup dynamic e))
+                           (m:lookup dynamic e))
                          names)])
           (map
             (lambda (name value)
-              (export
+              (m:export
                 dynamic
                 name
                 value))
@@ -75,7 +74,7 @@
           nil)))))
 
 (define module
-  (let ([env (make-env)])
+  (let ([env (m:make-env)])
     (m:module
       env
       (list

@@ -3,7 +3,7 @@
 (provide
   make-env
   extend
-  mutate
+  extend!
   lookup
   export
   get-exports)
@@ -18,7 +18,7 @@
     (cons (cons name value) (environment-bindings env))
     (environment-exports env)))
 
-(define (mutate env name value)
+(define (extend! env name value)
   (set-environment-bindings! env (cons (cons name value) (environment-bindings env))))
 
 (define (lookup env name)
