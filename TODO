@@ -3,3 +3,5 @@
 - remove unit from core
 - module exports should map from symbols (instead of strings) to values
 - include function
+- add a value type that returns itself
+- provide source information
