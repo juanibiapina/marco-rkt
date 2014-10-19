@@ -25,7 +25,7 @@
       (lambda (closure dynamic)
         (m:extend!
           dynamic
-          (m:symbol-name (m:lookup closure "name"))
+          (m:symbol-e (m:lookup closure "name"))
           (m:lookup closure "value"))
         nil))))
 
@@ -57,7 +57,7 @@
       (lambda (closure dynamic)
         (let* ([names (map
                         (lambda (name)
-                          (m:symbol-name name))
+                          (m:symbol-e name))
                         (m:list-forms (m:lookup closure "names")))]
                [values (map
                          (lambda (e)
