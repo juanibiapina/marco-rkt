@@ -3,8 +3,8 @@
 (require
   "lang/lexer.rkt"
   "lang/parser.rkt"
+  (prefix-in m: "language/main.rkt") ; should it need this?
   "interpreter.rkt"
-  "environment.rkt"
   "core-env.rkt")
 
 (provide
@@ -25,7 +25,7 @@
          [env
            (foldl
              (lambda (binding env)
-               (extend
+               (m:extend
                  env
                  (car binding)
                  (cdr binding)))

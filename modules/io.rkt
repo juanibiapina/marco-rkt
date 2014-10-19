@@ -1,8 +1,7 @@
 #lang racket
 
 (require
-  "../environment.rkt"
-  (prefix-in m: "../language.rkt"))
+  (prefix-in m: "../language/main.rkt"))
 
 (provide
   module)
@@ -12,12 +11,12 @@
     (list "port")
     (m:native-block
       (lambda (closure dynamic)
-        (let* ([port (lookup closure "port")]
+        (let* ([port (m:lookup closure "port")]
                [racket-port (m:port-value port)])
           (m:string (read-line racket-port)))))))
 
 (define module
-  (let ([env (make-env)])
+  (let ([env (m:make-env)])
     (m:module
       env
       (list

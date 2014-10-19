@@ -2,7 +2,7 @@
 
 (require
   rackunit
-  "../environment.rkt")
+  "../../language/environment.rkt")
 
 (define env
   (extend (make-env) "a" 1))

@@ -2,8 +2,7 @@
 
 (require
   rackunit
-  "../environment.rkt"
-  (prefix-in m: "../language.rkt"))
+  (prefix-in m: "../language/main.rkt"))
 
 (provide
   module)
@@ -13,12 +12,12 @@
     (list "actual" "expected")
     (m:native-block
       (lambda (closure dynamic)
-        (let ([actual (lookup closure "actual")]
-              [expected (lookup closure "expected")])
+        (let ([actual (m:lookup closure "actual")]
+              [expected (m:lookup closure "expected")])
           (check-equal? actual expected))))))
 
 (define module
-  (let ([env (make-env)])
+  (let ([env (m:make-env)])
     (m:module
       env
       (list

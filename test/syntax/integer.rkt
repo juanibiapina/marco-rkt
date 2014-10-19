@@ -3,7 +3,7 @@
 (require
   rackunit
   (only-in "../../loader.rkt" marco)
-  "../../language.rkt")
+  "../../language/main.rkt")
 
 (check-equal? (marco "0") (integer 0))
 (check-equal? (marco "5") (integer 5))

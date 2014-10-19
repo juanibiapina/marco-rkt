@@ -3,8 +3,7 @@
 (require
   "lang/lexer.rkt"
   "lang/parser.rkt"
-  "environment.rkt"
-  (prefix-in m: "language.rkt")
+  (prefix-in m: "language/main.rkt")
   (for-syntax (only-in racket/string string-join)))
 
 (provide
@@ -31,9 +30,9 @@
     [(m:string _) exp]
     [(m:symbol _) exp]
     [(m:native-block _) exp]
-    [(m:name name) (lookup env name)]
+    [(m:name name) (m:lookup env name)]
     [(m:nested-name names)
-     (let* ([module (lookup env (car names))]
+     (let* ([module (m:lookup env (car names))]
             [exports (m:module-exports module)])
        (if (null? exports)
          (error (format "Module doesn't export binding ~a" (cadr names)))
@@ -63,7 +62,7 @@
          [extended-env
            (foldl
              (lambda (formal arg result-env)
-               (extend
+               (m:extend
                  result-env
                  formal
                  arg))

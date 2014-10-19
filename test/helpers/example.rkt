@@ -2,7 +2,7 @@
 
 (require
   "../../loader.rkt"
-  (prefix-in m: "../../language.rkt"))
+  (prefix-in m: "../../language/main.rkt"))
 
 (provide
   run-example)

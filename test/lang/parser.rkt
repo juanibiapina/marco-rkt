@@ -5,7 +5,7 @@
   rackunit/text-ui
   "../../lang/lexer.rkt"
   (prefix-in parser: "../../lang/parser.rkt")
-  (prefix-in m: "../../language.rkt"))
+  (prefix-in m: "../../language/main.rkt"))
 
 (define (parse str)
   (define token-gen (make-token-gen (open-input-string str) #f))

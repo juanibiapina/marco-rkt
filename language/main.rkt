@@ -1,10 +1,12 @@
 #lang racket/base
 
 (require
+  "symbol.rkt"
   "environment.rkt")
 
 (provide
   (all-defined-out)
+  (all-from-out "symbol.rkt")
   (all-from-out "environment.rkt"))
 
 (struct program (exprs) #:transparent)
@@ -17,7 +19,6 @@
 (struct native-block (l) #:transparent)
 (struct closure (env function) #:transparent)
 (struct nil () #:transparent)
-(struct symbol (name) #:transparent)
 (struct module (env exports))
 (struct list (forms) #:transparent)
 (struct boolean (value) #:transparent)
