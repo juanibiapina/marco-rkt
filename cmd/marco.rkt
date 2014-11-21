@@ -1,8 +1,8 @@
 #lang racket
 
 (require
-  (prefix-in m: "language/main.rkt")
-  "loader.rkt")
+  (prefix-in m: "../language/main.rkt")
+  "../loader.rkt")
 
 (define filename
   (command-line
