@@ -13,7 +13,7 @@
   [lex:whitespace (:or #\newline #\return #\tab #\space #\vtab)]
   [lex:comment (:: #\/ #\/ any-string)]
   [lex:integer (:: (:? #\-) (:+ numeric))]
-  [lex:identifier (:+ (:or alphabetic #\- #\?))])
+  [lex:identifier (:+ (:or alphabetic #\+ #\- #\= #\% #\/ #\?))])
 
 (define (make-nested-name str)
   (token <nested-name> (string-split str ".")))
