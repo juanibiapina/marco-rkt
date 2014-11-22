@@ -29,6 +29,7 @@
     [(m:integer _) exp]
     [(m:string _) exp]
     [(m:symbol _) exp]
+    [(m:block _) exp]
     [(m:native-block _) exp]
     [(m:name name) (m:lookup env name)]
     [(m:nested-name names)

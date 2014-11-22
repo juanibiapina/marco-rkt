@@ -10,7 +10,7 @@
 
 (define-empty-tokens
   empty-tokens
-  (<eof> <lparem> <rparem> <lbracket> <rbracket>))
+  (<eof> <lparem> <rparem> <lbracket> <rbracket> <lbrace> <rbrace>))
 
 (define-tokens
   valued-tokens

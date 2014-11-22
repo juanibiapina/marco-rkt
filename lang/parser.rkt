@@ -38,7 +38,11 @@
         [(<nested-name>) (m:nested-name $1)]
         [(<name>) (m:name $1)]
         [(<list>) $1]
-        [(<application>) $1])
+        [(<application>) $1]
+        [(<block>) $1])
+      (<block>
+        [(<lbrace> <form> <form-tail> <rbrace>) (m:block (cons $2 $3))]
+        [(<lbrace> <form> <rbrace>) (m:block (list $2))])
       (<list>
         [(<lbracket> <rbracket>) (m:nil)]
         [(<lbracket> <form-tail> <rbracket>) (m:list $2)])

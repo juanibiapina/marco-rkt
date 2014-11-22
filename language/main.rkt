@@ -16,6 +16,7 @@
 (struct name (v) #:transparent)
 (struct nested-name (names) #:transparent)
 (struct function (formal body) #:transparent)
+(struct block (forms) #:transparent)
 (struct native-block (l) #:transparent)
 (struct closure (env function) #:transparent)
 (struct nil () #:transparent)

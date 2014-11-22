@@ -28,6 +28,8 @@
     [#\) (token <rparem>)]
     [#\[ (token <lbracket>)]
     [#\] (token <rbracket>)]
+    [#\{ (token <lbrace>)]
+    [#\} (token <rbrace>)]
     [(:: lex:identifier (:+ (:: #\. lex:identifier)))
      (make-nested-name lexeme)]
     [lex:identifier (token <name> lexeme)]
