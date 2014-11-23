@@ -1,7 +1,8 @@
 (def :io (require "io"))
-(def :integer (require "integer"))
+(def :string-conv (require "string-conv"))
+(def :integers (require "integers"))
 
-(def :n (integer.parse (io.read-line io.stdin)))
+(def :n (string-conv.parse-int (io.read-line io.stdin) 10))
 
 (def :sum (function [:list] {
   (if (nil? list) { 0 }
@@ -12,6 +13,6 @@
   (or { (= (% n 3) 0) } { (= (% n 5) 0) })
 }))
 
-(def :result (sum (filter (integer.range 1 n) include?)))
+(def :result (sum (filter (integers.range 1 n) include?)))
 
 (print result)

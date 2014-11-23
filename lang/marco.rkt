@@ -1,12 +1,11 @@
 #lang racket
 
 (require
-  "../interpreter.rkt"
+  "../loader.rkt"
   "../core-env.rkt")
 
 (provide
   #%datum
-  make-core-env
   eval
   (rename-out [module-begin #%module-begin]))
 
