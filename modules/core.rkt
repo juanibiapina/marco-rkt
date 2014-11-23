@@ -43,6 +43,15 @@
               [v2 (m:integer-v (m:lookup closure "v2"))])
           (m:integer (modulo v1 v2)))))))
 
+(define <-fun
+  (m:function
+    (list "v1" "v2")
+    (m:native-block
+      (lambda (closure dynamic)
+        (let ([v1 (m:integer-v (m:lookup closure "v1"))]
+              [v2 (m:integer-v (m:lookup closure "v2"))])
+          (m:boolean (< v1 v2)))))))
+
 (define nil
   (m:nil))
 
@@ -234,6 +243,9 @@
         (cons
           "%"
           (m:closure env %-fun))
+        (cons
+          "<"
+          (m:closure env <-fun))
         (cons
           "pair"
           (m:closure env pair-fun))

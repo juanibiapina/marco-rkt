@@ -16,3 +16,7 @@
 (check-equal? (% 4 2) 0)
 (check-equal? (% 4 3) 1)
 (check-equal? (% 8 3) 2)
+
+(check-equal? (< 0 1) true)
+(check-equal? (< 1 0) false)
+(check-equal? (< 4 4) false)
