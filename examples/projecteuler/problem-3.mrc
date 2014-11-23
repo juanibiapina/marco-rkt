@@ -1,6 +1,7 @@
 (def :io (require "io"))
 (def :integers (require "integers"))
 (def :string-conv (require "string-conv"))
+(def :lists (require "lists"))
 
 (def :divisible (function [:n :d] {
   (= (% n d) 0)
@@ -11,7 +12,7 @@
     (if (= n 2) { true } {
       (def :numbers-to-test (integers.range 2 (+ (/ n 2) 1)))
 
-      (not (any numbers-to-test (function [:e] {
+      (not (lists.any numbers-to-test (function [:e] {
         (divisible n e)
       })))
     })

@@ -7,4 +7,12 @@
         { (filter (tail list) predicate) }) })
 }))
 
-(export [:filter])
+(def :any (function [:list :f] {
+  (if (nil? list) { false } {
+    (if (f (head list)) { true } {
+      (recurse (tail list) f)
+    })
+  })
+}))
+
+(export [:filter :any])
