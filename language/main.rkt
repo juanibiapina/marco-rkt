@@ -2,6 +2,7 @@
 
 (require
   "nil.rkt"
+  "pair.rkt"
   "boolean.rkt"
   "symbol.rkt"
   "list.rkt"
@@ -10,6 +11,7 @@
 (provide
   (all-defined-out)
   (all-from-out "nil.rkt")
+  (all-from-out "pair.rkt")
   (all-from-out "list.rkt")
   (all-from-out "boolean.rkt")
   (all-from-out "symbol.rkt")

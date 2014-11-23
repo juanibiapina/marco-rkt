@@ -49,6 +49,12 @@
 
 (def :fib (make-fib))
 
+(def :even? (function [:n] {
+  (if (= (% n 2) 0)
+    { true }
+    { false })
+}))
+
 (def :include? (function [:n] {
   (even? n)
 }))

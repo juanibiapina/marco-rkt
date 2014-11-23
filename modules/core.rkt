@@ -124,6 +124,31 @@
           [(m:integer v) (display v)])
         nil))))
 
+(define pair-fun
+  (m:function
+    (list "first" "second")
+    (m:native-block
+      (lambda (closure dynamic)
+        (let ([first (m:lookup closure "first")]
+              [second (m:lookup closure "second")])
+          (m:pair first second))))))
+
+(define first-fun
+  (m:function
+    (list "pair")
+    (m:native-block
+      (lambda (closure dynamic)
+        (let ([pair (m:lookup closure "pair")])
+          (m:pair-first pair))))))
+
+(define second-fun
+  (m:function
+    (list "pair")
+    (m:native-block
+      (lambda (closure dynamic)
+        (let ([pair (m:lookup closure "pair")])
+          (m:pair-second pair))))))
+
 (define require
   (m:function
     (list "name")
@@ -209,6 +234,15 @@
         (cons
           "%"
           (m:closure env %-fun))
+        (cons
+          "pair"
+          (m:closure env pair-fun))
+        (cons
+          "first"
+          (m:closure env first-fun))
+        (cons
+          "second"
+          (m:closure env second-fun))
         (cons
           "require"
           (m:closure env require))
