@@ -1,5 +1,6 @@
 (def :io (require "io"))
-(def :integer (require "integer"))
+(def :integers (require "integers"))
+(def :string-conv (require "string-conv"))
 
 (def :divisible (function [:n :d] {
   (= (% n d) 0)
@@ -8,7 +9,7 @@
 (def :prime? (function [:n] {
   (if (= n 1) { false } {
     (if (= n 2) { true } {
-      (def :numbers-to-test (integer.range 2 (+ (/ n 2) 1)))
+      (def :numbers-to-test (integers.range 2 (+ (/ n 2) 1)))
 
       (not (any numbers-to-test (function [:e] {
         (divisible n e)
@@ -56,7 +57,7 @@
     { nil })
 }))
 
-(def :n (integer.parse (io.read-line io.stdin)))
+(def :n (string-conv.parse-int (io.read-line io.stdin) 10))
 
 (def :primes (stream-filter (stream-integers) prime?))
 

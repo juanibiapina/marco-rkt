@@ -34,6 +34,15 @@
               [v2 (m:integer-v (m:lookup closure "v2"))])
           (m:integer (- v1 v2)))))))
 
+(define /-fun
+  (m:function
+    (list "v1" "v2")
+    (m:native-block
+      (lambda (closure dynamic)
+        (let ([v1 (m:integer-v (m:lookup closure "v1"))]
+              [v2 (m:integer-v (m:lookup closure "v2"))])
+          (m:integer (quotient v1 v2)))))))
+
 (define %-fun
   (m:function
     (list "v1" "v2")
@@ -240,6 +249,9 @@
         (cons
           "-"
           (m:closure env --fun))
+        (cons
+          "/"
+          (m:closure env /-fun))
         (cons
           "%"
           (m:closure env %-fun))

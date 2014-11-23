@@ -11,6 +11,12 @@
 (check-equal? (- 4 2) 2)
 (check-equal? (- 1 5) -4)
 
+(check-equal? (/ 1 1) 1)
+(check-equal? (/ 2 1) 2)
+(check-equal? (/ 4 2) 2)
+(check-equal? (/ 4 3) 1)
+(check-equal? (/ 8 3) 2)
+
 (check-equal? (% 1 1) 0)
 (check-equal? (% 2 1) 0)
 (check-equal? (% 4 2) 0)
