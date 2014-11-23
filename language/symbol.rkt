@@ -2,6 +2,7 @@
 
 (provide
   symbol
+  symbol?
   symbol-e)
 
 (struct symbol (name) #:transparent)

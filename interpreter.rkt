@@ -65,7 +65,9 @@
              (lambda (formal arg result-env)
                (m:extend
                  result-env
-                 formal
+                 (if (m:symbol? formal)
+                   (m:symbol-e formal)
+                   formal)
                  arg))
              (m:closure-env closure) formal args)])
     (invoke (m:function-body f) extended-env env)))
@@ -73,4 +75,10 @@
 (define (invoke block closure dynamic)
   (match block
     [(m:native-block l)
-     (l closure dynamic)]))
+     (l closure dynamic)]
+    [(m:block forms)
+     (foldl
+       (lambda (form result)
+         (eval form closure))
+       m:nil
+       forms)]))

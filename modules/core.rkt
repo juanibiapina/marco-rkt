@@ -29,6 +29,19 @@
           (m:lookup closure "value"))
         nil))))
 
+(define function-fun
+  (m:function
+    (list "args" "body")
+    (m:native-block
+      (lambda (closure dynamic)
+        (let* ([args (m:lookup closure "args")]
+               [body (m:lookup closure "body")])
+          (m:closure
+            dynamic
+            (m:function
+              (m:list->racket-list args)
+              body)))))))
+
 (define print
   (m:function
     (list "value")
@@ -93,6 +106,9 @@
         (cons
           "def"
           (m:closure env def))
+        (cons
+          "function"
+          (m:closure env function-fun))
         (cons
           "print"
           (m:closure env print))

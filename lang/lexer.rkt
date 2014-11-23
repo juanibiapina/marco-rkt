@@ -13,7 +13,9 @@
   [lex:whitespace (:or #\newline #\return #\tab #\space #\vtab)]
   [lex:comment (:: #\/ #\/ any-string)]
   [lex:integer (:: (:? #\-) (:+ numeric))]
-  [lex:identifier (:+ (:or alphabetic #\+ #\- #\= #\% #\/ #\?))])
+  [lex:identifier-head (:or alphabetic #\+ #\- #\= #\% #\/ #\?)]
+  [lex:identifier-rest (:or lex:identifier-head numeric)]
+  [lex:identifier (:: lex:identifier-head (:* lex:identifier-rest))])
 
 (define (make-nested-name str)
   (token <nested-name> (string-split str ".")))
@@ -32,9 +34,9 @@
     [#\} (token <rbrace>)]
     [(:: lex:identifier (:+ (:: #\. lex:identifier)))
      (make-nested-name lexeme)]
-    [lex:identifier (token <name> lexeme)]
     [(:: #\: lex:identifier) (token <symbol> (substring lexeme 1))]
-    [lex:integer (token <integer> (string->number lexeme))]))
+    [lex:integer (token <integer> (string->number lexeme))]
+    [lex:identifier (token <name> lexeme)]))
 
 (define (make-token-gen port src)
   (port-count-lines! port)

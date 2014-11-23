@@ -27,3 +27,8 @@
 
 (define (make-module env)
   (module env (get-exports env)))
+
+(define (list->racket-list l)
+  (if (nil? l)
+    null
+    (list-forms l)))
