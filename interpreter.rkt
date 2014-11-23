@@ -68,7 +68,12 @@
                    (m:symbol-e formal)
                    formal)
                  arg))
-             (m:closure-env closure) formal args)])
+             (m:closure-env closure) formal args)]
+         [extended-env
+           (m:extend
+             extended-env
+             "recurse"
+             closure)])
     (invoke (m:function-body f) extended-env env)))
 
 (define (invoke block closure dynamic)

@@ -7,6 +7,10 @@
 (check-equal? (+ 2 1) 3)
 (check-equal? (+ 4 2) 6)
 
+(check-equal? (- 1 1) 0)
+(check-equal? (- 4 2) 2)
+(check-equal? (- 1 5) -4)
+
 (check-equal? (% 1 1) 0)
 (check-equal? (% 2 1) 0)
 (check-equal? (% 4 2) 0)
