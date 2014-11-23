@@ -7,6 +7,33 @@
 (provide
   module)
 
+(define =-fun
+  (m:function
+    (list "v1" "v2")
+    (m:native-block
+      (lambda (closure dynamic)
+        (let ([v1 (m:integer-v (m:lookup closure "v1"))]
+              [v2 (m:integer-v (m:lookup closure "v2"))])
+          (m:boolean (= v1 v2)))))))
+
+(define +-fun
+  (m:function
+    (list "v1" "v2")
+    (m:native-block
+      (lambda (closure dynamic)
+        (let ([v1 (m:integer-v (m:lookup closure "v1"))]
+              [v2 (m:integer-v (m:lookup closure "v2"))])
+          (m:integer (+ v1 v2)))))))
+
+(define %-fun
+  (m:function
+    (list "v1" "v2")
+    (m:native-block
+      (lambda (closure dynamic)
+        (let ([v1 (m:integer-v (m:lookup closure "v1"))]
+              [v2 (m:integer-v (m:lookup closure "v2"))])
+          (m:integer (modulo v1 v2)))))))
+
 (define nil
   (m:nil))
 
@@ -18,6 +45,31 @@
         (let ([value (m:lookup closure "value")])
           (m:boolean (m:nil? value)))))))
 
+(define cons-fun
+  (m:function
+    (list "h" "t")
+    (m:native-block
+      (lambda (closure dynamic)
+        (let ([h (m:lookup closure "h")]
+              [t (m:lookup closure "t")])
+          (m:racket-list->list (cons h (m:list->racket-list t))))))))
+
+(define head-fun
+  (m:function
+    (list "list")
+    (m:native-block
+      (lambda (closure dynamic)
+        (let ([l (m:lookup closure "list")])
+          (car (m:list->racket-list l)))))))
+
+(define tail-fun
+  (m:function
+    (list "list")
+    (m:native-block
+      (lambda (closure dynamic)
+        (let ([l (m:lookup closure "list")])
+          (m:racket-list->list (cdr (m:list->racket-list l))))))))
+
 (define def
   (m:function
     (list "name" "value")
@@ -28,6 +80,17 @@
           (m:symbol-e (m:lookup closure "name"))
           (m:lookup closure "value"))
         nil))))
+
+(define if-fun
+  (m:function
+    (list "value" "then-clause" "else-clause")
+    (m:native-block
+      (lambda (closure dynamic)
+        (let ([v (m:boolean-e (m:lookup closure "value"))]
+              [then-clause (m:lookup closure "then-clause")]
+              [else-clause (m:lookup closure "else-clause")])
+          (if v (invoke then-clause dynamic null) (invoke else-clause dynamic null)))))))
+
 
 (define function-fun
   (m:function
@@ -104,14 +167,35 @@
           "false"
           (m:boolean #f))
         (cons
+          "cons"
+          (m:closure env cons-fun))
+        (cons
+          "head"
+          (m:closure env head-fun))
+        (cons
+          "tail"
+          (m:closure env tail-fun))
+        (cons
           "def"
           (m:closure env def))
+        (cons
+          "if"
+          (m:closure env if-fun))
         (cons
           "function"
           (m:closure env function-fun))
         (cons
           "print"
           (m:closure env print))
+        (cons
+          "="
+          (m:closure env =-fun))
+        (cons
+          "+"
+          (m:closure env +-fun))
+        (cons
+          "%"
+          (m:closure env %-fun))
         (cons
           "require"
           (m:closure env require))

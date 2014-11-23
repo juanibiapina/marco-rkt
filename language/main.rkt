@@ -1,11 +1,13 @@
 #lang racket/base
 
 (require
+  "boolean.rkt"
   "symbol.rkt"
   "environment.rkt")
 
 (provide
   (all-defined-out)
+  (all-from-out "boolean.rkt")
   (all-from-out "symbol.rkt")
   (all-from-out "environment.rkt"))
 
@@ -22,7 +24,6 @@
 (struct nil () #:transparent)
 (struct module (env exports))
 (struct list (forms) #:transparent)
-(struct boolean (value) #:transparent)
 (struct port (value) #:transparent)
 
 (define (make-module env)
@@ -32,3 +33,8 @@
   (if (nil? l)
     null
     (list-forms l)))
+
+(define (racket-list->list l)
+  (if (null? l)
+    (nil)
+    (list l)))

@@ -28,4 +28,5 @@ marco/lang/marco
                               (build-path path "modules")))))])
     (with-syntax ([ast ast] [env env])
       (list
-        (syntax (eval ast env))))))
+        (syntax (provide module))
+        (syntax (define module (eval-into-module ast env)))))))

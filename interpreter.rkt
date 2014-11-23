@@ -7,13 +7,12 @@
   (for-syntax (only-in racket/string string-join)))
 
 (provide
+  invoke
   eval
   eval-into-module)
 
-(define (eval-into-module port env)
-  (let* ([token-gen (make-token-gen port #f)]
-         [ast (parse token-gen)]
-         [result (eval ast env)])
+(define (eval-into-module exp env)
+  (let* ([result (eval exp env)])
     (m:make-module env)))
 
 (define (eval exp env)

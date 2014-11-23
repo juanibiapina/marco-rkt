@@ -6,10 +6,4 @@
 
 (provide
   #%datum
-  eval
-  (rename-out [module-begin #%module-begin]))
-
-(define-syntax (module-begin stx)
-  (syntax-case stx ()
-    [(_ stx)
-     (syntax (#%module-begin stx))]))
+  #%module-begin)
