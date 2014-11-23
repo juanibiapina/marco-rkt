@@ -7,6 +7,14 @@
 (provide
   module)
 
+(define not-fun
+  (m:function
+    (list "v")
+    (m:native-block
+      (lambda (closure dynamic)
+        (let ([v (m:boolean-e (m:lookup closure "v"))])
+          (m:boolean (not v)))))))
+
 (define =-fun
   (m:function
     (list "v1" "v2")
@@ -219,6 +227,9 @@
         (cons
           "false"
           (m:boolean #f))
+        (cons
+          "not"
+          (m:closure env not-fun))
         (cons
           "cons"
           (m:closure env cons-fun))
