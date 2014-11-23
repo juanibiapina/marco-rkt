@@ -1,5 +1,5 @@
 (def :io (require "io"))
-(def :integer (require "integer"))
+(def :string-conv (require "string-conv"))
 
 (def :make-fib (function [] {
   (def :helper (function [:a :b] {
@@ -45,7 +45,7 @@
     { (+ (head list) (recurse (tail list))) })
 }))
 
-(def :n (integer.parse (io.read-line io.stdin)))
+(def :n (string-conv.parse-int (io.read-line io.stdin) 10))
 
 (def :fib (make-fib))
 

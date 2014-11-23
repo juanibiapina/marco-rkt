@@ -13,7 +13,7 @@
   [lex:whitespace (:or #\newline #\return #\tab #\space #\vtab)]
   [lex:comment (:: #\/ #\/ any-string)]
   [lex:integer (:: (:? #\-) (:+ numeric))]
-  [lex:identifier-head (:or alphabetic #\+ #\- #\= #\% #\/ #\?)]
+  [lex:identifier-head (:or alphabetic #\+ #\- #\= #\% #\/ #\< #\> #\?)]
   [lex:identifier-rest (:or lex:identifier-head numeric)]
   [lex:identifier (:: lex:identifier-head (:* lex:identifier-rest))])
 
