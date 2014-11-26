@@ -4,6 +4,16 @@
   (prefix-in m: "../language/main.rkt")
   "../loader.rkt")
 
+(define marco-root
+  (let ([value (getenv "MARCOROOT")])
+    (if value
+      value
+      (error "MARCOROOT not set"))))
+
+(define module-path
+  (path->string
+    (build-path marco-root "modules")))
+
 (define filename
   (command-line
     #:args (filename)
@@ -14,10 +24,5 @@
   (lambda (port)
     (eval-with-bindings
       port
-      (cons
-        "module-path"
-        (m:string
-          (path->string
-            (let-values ([(path name _) (split-path (collection-file-path "main.rkt" "marco"))])
-              (build-path path "modules"))))))
+      (cons "module-path" (m:string module-path)))
     (void)))
