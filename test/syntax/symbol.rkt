@@ -2,9 +2,9 @@
 
 (require
   rackunit
-  (only-in "../../loader.rkt" eval-string)
+  "../helpers/eval.rkt"
   "../../language/symbol.rkt")
 
-(check-equal? (eval-string ":x") (symbol "x"))
-(check-equal? (eval-string ":lol") (symbol "lol"))
-(check-equal? (eval-string ":withnumber1") (symbol "withnumber1"))
+(check-equal? (eval ":x") (symbol "x"))
+(check-equal? (eval ":lol") (symbol "lol"))
+(check-equal? (eval ":withnumber1") (symbol "withnumber1"))

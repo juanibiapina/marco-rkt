@@ -2,7 +2,8 @@
 
 (require
   (prefix-in m: "../language/main.rkt")
-  "../loader.rkt")
+  "../loader.rkt"
+  "../core-env.rkt")
 
 (define marco-root
   (let ([value (getenv "MARCOROOT")])
@@ -19,10 +20,13 @@
     #:args (filename)
     filename))
 
-(call-with-input-file
-  filename
-  (lambda (port)
-    (eval-with-bindings
-      port
-      (cons "module-path" (m:string module-path)))
-    (void)))
+(define env
+  (let* ([env (make-core-env)]
+         [env
+           (m:extend
+             env
+             "module-path"
+             (m:string module-path))])
+    env))
+
+(eval-file filename env)

@@ -3,34 +3,26 @@
 (require
   "lang/lexer.rkt"
   "lang/parser.rkt"
-  (prefix-in m: "language/main.rkt") ; should it need this?
-  "interpreter.rkt"
-  "core-env.rkt")
+  "interpreter.rkt")
 
 (provide
+  eval-file
   eval-string
-  eval-with-bindings)
+  eval-port)
 
-(define (eval-port port src)
+(define (eval-port port src env)
   (let* ([token-gen (make-token-gen port src)]
-         [ast (parse token-gen)]
-         [env (make-core-env)])
+         [ast (parse token-gen)])
     (eval ast env)))
 
-(define (eval-string code)
-  (eval-port (open-input-string code) #f))
+(define (eval-file filename env)
+  (call-with-input-file
+    filename
+    (lambda (port)
+      (eval-port
+        port
+        filename
+        env))))
 
-(define (eval-with-bindings port . bindings)
-  (let* ([token-gen (make-token-gen port #f)]
-         [ast (parse token-gen)]
-         [env (make-core-env)]
-         [env
-           (foldl
-             (lambda (binding env)
-               (m:extend
-                 env
-                 (car binding)
-                 (cdr binding)))
-             env
-             bindings)])
-    (eval ast env)))
+(define (eval-string code env)
+  (eval-port (open-input-string code) #f env))

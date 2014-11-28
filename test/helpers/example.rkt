@@ -1,6 +1,7 @@
 #lang racket
 
 (require
+  "../../core-env.rkt"
   "../../loader.rkt"
   (prefix-in m: "../../language/main.rkt"))
 
@@ -13,13 +14,18 @@
 (define (run-example name [input ""])
   (define result (open-output-string))
   (define input-port (open-input-string input))
+  (define env
+    (let* ([env (make-core-env)]
+           [env
+             (m:extend
+               env
+               "module-path"
+               (m:string "../../modules"))])
+      env))
 
-  (call-with-input-file
-    (example-filename name)
-    (lambda (port)
-      (parameterize ([current-output-port result]
-                     [current-input-port input-port])
-        (eval-with-bindings
-          port
-          (cons "module-path" (m:string "../../modules"))))
-      (get-output-string result))))
+  (parameterize ([current-output-port result]
+                 [current-input-port input-port])
+    (eval-file
+      (example-filename name)
+      env)
+    (get-output-string result)))
