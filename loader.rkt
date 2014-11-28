@@ -8,14 +8,17 @@
   "core-env.rkt")
 
 (provide
-  marco
+  eval-string
   eval-with-bindings)
 
-(define (eval-port port [src #f])
+(define (eval-port port src)
   (let* ([token-gen (make-token-gen port src)]
          [ast (parse token-gen)]
          [env (make-core-env)])
     (eval ast env)))
+
+(define (eval-string code)
+  (eval-port (open-input-string code) #f))
 
 (define (eval-with-bindings port . bindings)
   (let* ([token-gen (make-token-gen port #f)]
@@ -31,6 +34,3 @@
              env
              bindings)])
     (eval ast env)))
-
-(define (marco code)
-  (eval-port (open-input-string code)))

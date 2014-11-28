@@ -2,8 +2,8 @@
 
 (require
   rackunit
-  (only-in "../../loader.rkt" marco)
+  (only-in "../../loader.rkt" eval-string)
   (prefix-in m: "../../language/main.rkt"))
 
-(check-equal? (marco "[]") (m:nil))
-(check-equal? (marco "[1]") (m:list (list (m:integer 1))))
+(check-equal? (eval-string "[]") (m:nil))
+(check-equal? (eval-string "[1]") (m:list (list (m:integer 1))))
