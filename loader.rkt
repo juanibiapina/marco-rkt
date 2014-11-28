@@ -9,7 +9,6 @@
 
 (provide
   marco
-  eval-port
   eval-with-bindings)
 
 (define (eval-port port [src #f])
