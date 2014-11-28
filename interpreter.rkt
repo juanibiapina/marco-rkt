@@ -48,8 +48,8 @@
            module
            (cdr names))))]
     [(m:closure _ _) exp]
-    [(m:list forms)
-     (m:list (map (lambda (e) (eval e env)) forms))]
+    [(m:pair first second)
+     (m:pair (eval first env) (eval second env))]
     [(m:application (list forms ...))
      (let* ([eforms (map (lambda (e) (eval e env)) forms)]
             [closure (car eforms)]

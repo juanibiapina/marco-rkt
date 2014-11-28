@@ -45,7 +45,7 @@
         [(<lbrace> <form> <rbrace>) (m:block (list $2))])
       (<list>
         [(<lbracket> <rbracket>) (m:nil)]
-        [(<lbracket> <form-tail> <rbracket>) (m:list $2)])
+        [(<lbracket> <form-tail> <rbracket>) (m:racket-list->list $2)])
       (<application>
         [(<lparem> <form-tail> <rparem>) (m:application $2)])
       (<form-tail>

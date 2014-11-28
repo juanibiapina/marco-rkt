@@ -87,7 +87,7 @@
       (lambda (closure dynamic)
         (let ([h (m:lookup closure "h")]
               [t (m:lookup closure "t")])
-          (m:racket-list->list (cons h (m:list->racket-list t))))))))
+          (m:pair h t))))))
 
 (define head-fun
   (m:function
@@ -95,7 +95,7 @@
     (m:native-block
       (lambda (closure dynamic)
         (let ([l (m:lookup closure "list")])
-          (car (m:list->racket-list l)))))))
+          (m:head l))))))
 
 (define tail-fun
   (m:function
@@ -103,7 +103,7 @@
     (m:native-block
       (lambda (closure dynamic)
         (let ([l (m:lookup closure "list")])
-          (m:racket-list->list (cdr (m:list->racket-list l))))))))
+          (m:tail l))))))
 
 (define def
   (m:function
@@ -195,7 +195,7 @@
         (let* ([names (map
                         (lambda (name)
                           (m:symbol-e name))
-                        (m:list-forms (m:lookup closure "names")))]
+                        (m:list->racket-list (m:lookup closure "names")))]
                [values (map
                          (lambda (e)
                            (m:lookup dynamic e))

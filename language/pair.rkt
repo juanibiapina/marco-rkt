@@ -5,4 +5,4 @@
   pair-first
   pair-second)
 
-(struct pair (first second))
+(struct pair (first second) #:transparent)

@@ -13,10 +13,10 @@
       (lambda (closure dynamic)
         (let* ([start (m:integer-v (m:lookup closure "start"))]
                [end (m:integer-v (m:lookup closure "end"))])
-          (m:list (map
-                    (lambda (e)
-                      (m:integer e))
-                    (stream->list (in-range start end)))))))))
+          (m:racket-list->list (map
+                                 (lambda (e)
+                                   (m:integer e))
+                                 (stream->list (in-range start end)))))))))
 
 (define module
   (let ([env (m:make-env)])
