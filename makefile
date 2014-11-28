@@ -13,5 +13,6 @@ test-racket:
 
 clean:
 	rm -rf build
+	find . | grep compiled | xargs rm -rf
 
 .PHONY: build test test-racket clean output-dirs
